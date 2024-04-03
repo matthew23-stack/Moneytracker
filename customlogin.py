@@ -15,6 +15,7 @@ def save():
 def button_function():
     app.destroy()
     w = customtkinter.CTk()
+    test
     w.geometry('1200x720')
     w.title('Welcome')
     l1=customtkinter.CTkLabel(master=w, text='Home Page',font=('century gothic', 60))
