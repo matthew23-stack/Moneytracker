@@ -50,16 +50,19 @@ class Application_Gui:
         self.var4 = CTkEntry(master=self.input_Frame, placeholder_text="Amounts (R)", width=250,
                                        text_color="black", fg_color="#EBEBEB")
         self.var4.grid(row=0, column=4, sticky=tk.W + tk.E)
+        self.temp_Dictionary = {}
+        # self.temp_List = [self.var1 , self.var2 , self.var3 ,self.var4]
+        # self.temp_Dictionary = {1:self.temp_List[0]}
 
-        self.temp_List = [self.var1 , self.var2 , self.var3 ,self.var4]
-        self.temp_Dictionary = {1:self.temp_List[0]}
-
-        print(type(self.var1))
-
+        # print(type(self.var1))
+        self.temp_List = [self.var1, self.var2, self.var3, self.var4]
+        # self.temp_Dictionary = {self.current_Row_Position: f"{self.temp_List[0].get()}-{self.temp_List[1].get()}-{self.temp_List[2].get()}-{self.temp_List[3].get()}"}
         def create_New_Row():
             self.current_Row_Position += 1
-            self.temp_List = list(range(self.current_Row_Position + 3))
+            self.temp_List = [self.var1, self.var2, self.var3, self.var4]
+            self.temp_Dictionary["Row " + str(self.current_Row_Position)] = f"{self.temp_List[0].get()}-{self.temp_List[1].get()}-{self.temp_List[2].get()}-{self.temp_List[3].get()}"
 
+            # self.temp_List = list(range(self.current_Row_Position + 3))
 
             self.var1 = CTkEntry(master=self.input_Frame, placeholder_text="Date (dd/mm/yy): ", width=300, text_color="black", fg_color="#EBEBEB")
             self.var1.grid(row=self.current_Row_Position, column=1, sticky=tk.W + tk.E)
@@ -78,8 +81,13 @@ class Application_Gui:
             self.btn_Add_Inputs.grid(row=self.btn_Add_Position_In_Row, column=4, sticky=tk.W + tk.E, pady=10)
 
         def continue_To_Next_Page():
+            self.temp_List = [self.var1, self.var2, self.var3, self.var4]
+            self.temp_Dictionary[
+                "Row " + str(self.current_Row_Position + 1)] = f"{self.temp_List[0].get()}-{self.temp_List[1].get()}-{self.temp_List[2].get()}-{self.temp_List[3].get()}"
+
             print("Continue To Next Page")
-            print(self.temp_Dictionary.get(1).get())
+            print(self.temp_Dictionary)
+
             return
 
         # Note Zee, the button's rows should be one more than the current index
