@@ -23,9 +23,23 @@ class Application_Gui:
 
         self.root.resizable(width=False, height=True)
         self.title = CTkLabel(master=self.root, text="Income and Expense Inputs", font=(self.MAIN_FONT, 28),bg_color="#EBEBEB", text_color="black")
-        self.title.pack(padx=10, pady=30)
+        self.title.pack(padx=10, pady=50)
 
-        self.input_Frame = CTkScrollableFrame(self.root, fg_color="#EBEBEB", border_width=-2, orientation="vertical",width=900, height=320)
+
+        self.title_Date = CTkLabel(master=self.root, text="Date", font=(self.MAIN_FONT, 18),bg_color="#EBEBEB", text_color="black")
+        self.title_Date.place(x=140,y=108)
+
+        self.title_Date = CTkLabel(master=self.root, text="Type", font=(self.MAIN_FONT, 18),bg_color="#EBEBEB", text_color="black")
+        self.title_Date.place(x=350,y=108)
+
+        self.title_Date = CTkLabel(master=self.root, text="Category", font=(self.MAIN_FONT, 18),bg_color="#EBEBEB", text_color="black")
+        self.title_Date.place(x=540,y=108)
+
+        self.title_Date = CTkLabel(master=self.root, text="Amount", font=(self.MAIN_FONT, 18),bg_color="#EBEBEB", text_color="black")
+        self.title_Date.place(x=775,y=108)
+
+
+        self.input_Frame = CTkScrollableFrame(self.root, fg_color="#EBEBEB", border_width=-2, orientation="vertical",width=900, height=300)
         self.input_Frame.pack(padx=50)
 
         self.input_Frame.columnconfigure(0, weight=1)
@@ -67,15 +81,15 @@ class Application_Gui:
             self.var1 = CTkEntry(master=self.input_Frame, placeholder_text="Date (dd/mm/yy): ", width=300, text_color="black", fg_color="#EBEBEB")
             self.var1.grid(row=self.current_Row_Position, column=1, sticky=tk.W + tk.E)
 
-            self.var2 = CTkEntry(master=self.input_Frame, placeholder_text="Date (dd/mm/yy): ", width=300,text_color="black", fg_color="#EBEBEB")
+            self.var2 = CTkEntry(master=self.input_Frame, placeholder_text="Type (Income / Expense): ", width=300,text_color="black", fg_color="#EBEBEB")
             self.var2.grid(row=self.current_Row_Position, column=2, sticky=tk.W + tk.E)
 
-            self.var3 = CTkEntry(master=self.input_Frame, placeholder_text="Date (dd/mm/yy): ", width=300,text_color="black", fg_color="#EBEBEB")
+            self.var3 = CTkEntry(master=self.input_Frame, placeholder_text="Category (One Word Description): ", width=300,text_color="black", fg_color="#EBEBEB")
             self.var3.grid(row=self.current_Row_Position, column=3, sticky=tk.W + tk.E)
 
-            self.var4 = CTkEntry(master=self.input_Frame, placeholder_text="Date (dd/mm/yy): ", width=250,text_color="black", fg_color="#EBEBEB")
+            self.var4 = CTkEntry(master=self.input_Frame, placeholder_text="Amounts (R): ", width=250,text_color="black", fg_color="#EBEBEB")
             self.var4.grid(row=self.current_Row_Position, column=4, sticky=tk.W + tk.E)
-
+# Halllo
 
             self.btn_Add_Position_In_Row += 1
             self.btn_Add_Inputs.grid(row=self.btn_Add_Position_In_Row, column=4, sticky=tk.W + tk.E, pady=10)
