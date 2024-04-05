@@ -1,6 +1,7 @@
 from customtkinter import *
 import customtkinter
 import tkinter as tk
+import csv
 
 
 class Application_Gui:
@@ -9,7 +10,7 @@ class Application_Gui:
     SECONDARY_HEADER = 14  # This is the size of the font: Secondary Header
     TERTIARY_HEADER = 10  # This is the size of the font: Tertiary Header
     current_Row_Position = 0  # This variable contains which row the program is currently on
-
+    
     def __init__(self):
         self.root = CTk()
         self.root.geometry("1000x600")
@@ -146,6 +147,8 @@ class display_Main_Output_GUI:
     total_Expenses = 10_000
     total_Balance = 10_000
 
+    
+
     def __init__(self):
         self.root2 = CTk()
         self.root2.geometry("1000x600")
@@ -165,30 +168,32 @@ class display_Main_Output_GUI:
         self.frm_Totals_Table = CTkFrame(master=self.frm_Main, height=600, width=600,fg_color="#D6CFC7",bg_color='#CDB18F')
         self.frm_Totals_Table.pack()
 
+        with open("monthly.csv", 'r') as file:
+            reader = csv.reader(file)
+            analysisdata = [row for row in reader]
+
+        print(analysisdata)
         # self.frm_Totals_Table.columnconfigure(1, weight=1)
+        for i in range(len(analysisdata)):
+            for j in range(2):
+                self.title_Income = CTkLabel(master=self.frm_Totals_Table, text=analysisdata[i][j], text_color="black",font=(self.application_GUI.MAIN_FONT, 18),bg_color="#CBB9A3",width=240,height=64)
+                self.title_Income.grid(row=i+1, column=j+1,pady=2,padx=2)
 
-        self.title_Income = CTkLabel(master=self.frm_Totals_Table, text="Income", text_color="black",font=(self.application_GUI.MAIN_FONT, 18),bg_color="#CBB9A3",width=240,height=64)
-        self.title_Income.grid(row=0, column=1,pady=2,padx=2)
+        self.title_Expenses = CTkLabel(master=self.frm_Main,corner_radius=10, bg_color="#EBEBEB",height=50, width=400, font=(self.application_GUI.MAIN_FONT, 24),text_color='black',text="Expenses")
+        self.title_Expenses.place(x=8,y=270)
 
-        self.title_Income = CTkLabel(master=self.frm_Totals_Table, text="Expense", text_color="black",font=(self.application_GUI.MAIN_FONT, 18), bg_color="#CBB9A3",width=240,height=64)
-        self.title_Income.grid(row=1, column=1, pady=2, padx=2)
+        self.title_Expenses = CTkLabel(master=self.frm_Main,corner_radius=10, bg_color="#EBEBEB",height=50, width=400, font=(self.application_GUI.MAIN_FONT, 24),text_color='black',text="Income")
+        self.title_Expenses.place(x=560,y=270)
 
-        self.title_Income = CTkLabel(master=self.frm_Totals_Table, text="Income Value", text_color="black",font=(self.application_GUI.MAIN_FONT, 18), bg_color="#CBB9A3",width=240,height=64)
-        self.title_Income.grid(row=0, column=2, pady=2, padx=2)
-
-        self.title_Income = CTkLabel(master=self.frm_Totals_Table, text="Expense Value", text_color="black",font=(self.application_GUI.MAIN_FONT, 18), bg_color="#CBB9A3",width=240,height=64)
-        self.title_Income.grid(row=1, column=2, pady=2, padx=2)
-
-        self.title_Income = CTkLabel(master=self.frm_Totals_Table, text="Balance Outcome", text_color="black",font=(self.application_GUI.MAIN_FONT, 18), bg_color="#CBB9A3", width=240, height=64)
-        self.title_Income.grid(row=3, column=2, pady=2, padx=2)
-
-        self.title_Income = CTkLabel(master=self.frm_Totals_Table, text="Balance", text_color="black",font=(self.application_GUI.MAIN_FONT, 18), bg_color="#CBB9A3", width=240, height=64)
-        self.title_Income.grid(row=3, column=1, pady=2, padx=2)
+        blank_Space = CTkLabel(master=self.frm_Main, text="""
 
 
 
-        self.title_Expenses = CTkLabel(master=self.frm_Main,corner_radius=10, bg_color="#EBEBEB",height=50, width=400, font=(self.application_GUI.MAIN_FONT, 24),text_color='black',text="Expenses and Incomes")
-        self.title_Expenses.pack(pady=30)
+
+
+
+        """)
+        blank_Space.pack()
 
 
 
@@ -198,28 +203,44 @@ class display_Main_Output_GUI:
         self.frm_Incomes = CTkFrame(master=self.frm_Main, height=600, width=300, fg_color="#D6CFC7", bg_color='#CDB18F')
         self.frm_Incomes.pack(side='right',padx=10)
 
-        # use len(self.dictionary)
-        for i in range(0,10):
+        with open("expenses.csv", 'r') as file:
+            reader = csv.DictReader(file)
+            expensedata = [row for row in reader]
+            
+        with open("income.csv", 'r') as file:
+            reader = csv.DictReader(file)
+            incomedata = [row for row in reader]
 
-            self.row_Descriptions = CTkLabel(master=self.frm_Expense,text_color="black",font=(self.application_GUI.MAIN_FONT, 18),bg_color="#CBB9A3",width=200,height=64,text="Expense Description" + str(i  +1))
+        
+        #expensedata = Application_Gui.load_file_csv("expenses.csv")
+        #incomedata = Application_Gui.load_file_csv("income.csv")
+
+        print(expensedata[0]["Amount"])
+        # use len(self.dictionary)
+        for i in range(len(expensedata) ):
+            
+            
+            
+            self.row_Descriptions = CTkLabel(master=self.frm_Expense,text_color="black",font=(self.application_GUI.MAIN_FONT, 18),bg_color="#CBB9A3",width=200,height=64,text=expensedata[i]["Category"])
             self.row_Descriptions.grid(row=i, column=1,pady=2,padx=2)
 
-            self.row_Items = CTkLabel(master=self.frm_Expense,text_color="black",font=(self.application_GUI.MAIN_FONT, 18),bg_color="#CBB9A3",width=200,height=64,text="Expense item" + str(i  +1))
+            self.row_Items = CTkLabel(master=self.frm_Expense,text_color="black",font=(self.application_GUI.MAIN_FONT, 18),bg_color="#CBB9A3",width=200,height=64,text="R " + expensedata[i]["Amount"])
             self.row_Items.grid(row=i, column=2,pady=2,padx=2)
-
-        for i in range(0, 10):
+        for i in range(len(incomedata) ):
+            
             self.row_Income_Descriptions = CTkLabel(master=self.frm_Incomes, text_color="black",
-                                                 font=(self.application_GUI.MAIN_FONT, 18), bg_color="#CBB9A3",
-                                                 width=200, height=64, text="Income Description" + str(i + 1))
+                                                    font=(self.application_GUI.MAIN_FONT, 18), bg_color="#CBB9A3",
+                                                    width=200, height=64, text=incomedata[i]["Category"])
             self.row_Income_Descriptions.grid(row=i, column=1, pady=2, padx=2)
 
             self.row_Income_Items = CTkLabel(master=self.frm_Incomes, text_color="black",
-                                          font=(self.application_GUI.MAIN_FONT, 18), bg_color="#CBB9A3", width=200,
-                                          height=64, text="Income item" + str(i + 1))
+                                            font=(self.application_GUI.MAIN_FONT, 18), bg_color="#CBB9A3", width=200,
+                                            height=64, text=incomedata[i]["Amount"])
             self.row_Income_Items.grid(row=i, column=2, pady=2, padx=2)
 
         self.root2.mainloop()
         return
+    
 
 
 display_Main_Output_GUI()
