@@ -1,1 +1,2 @@
 print("atandiwe")
+print("Ndamase")
